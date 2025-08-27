@@ -8,56 +8,35 @@ module.exports = ({ env }) => {
   console.log('DATABASE_NAME:', env('DATABASE_NAME', 'not set'));
   console.log('DATABASE_USERNAME:', env('DATABASE_USERNAME', 'not set'));
   console.log('DATABASE_PASSWORD:', env('DATABASE_PASSWORD', 'not set') ? '***hidden***' : 'not set');
-  
-  // Check if we're forcing a specific client
-  const clientOverride = env('DATABASE_CLIENT_OVERRIDE', '');
-  const usePostgres = env('DATABASE_CLIENT', 'postgres') === 'postgres' && !clientOverride;
-  
-  console.log('Use PostgreSQL:', usePostgres);
-  console.log('Client Override:', clientOverride || 'none');
+  console.log('DATABASE_SSL:', env('DATABASE_SSL', 'not set'));
   console.log('=========================================');
 
-  if (usePostgres && !clientOverride) {
-    // PostgreSQL configuration for Render
-    return {
+  // PostgreSQL configuration optimized for Render
+  return {
+    connection: {
+      client: 'postgres',
       connection: {
-        client: 'postgres',
-        connection: {
-          host: env('DATABASE_HOST'),
-          port: env.int('DATABASE_PORT', 5432),
-          database: env('DATABASE_NAME'),
-          user: env('DATABASE_USERNAME'),
-          password: env('DATABASE_PASSWORD'),
-          ssl: {
-            rejectUnauthorized: false,
-            require: true
-          },
-        },
-        pool: {
-          min: 0, // Start with 0 to avoid immediate connection failure
-          max: 10,
-          createTimeoutMillis: 60000,
-          acquireTimeoutMillis: 60000,
-          idleTimeoutMillis: 30000,
-          reapIntervalMillis: 1000,
-          createRetryIntervalMillis: 200,
-          propagateCreateError: false // Don't fail immediately if can't connect
-        },
-        debug: false,
-        acquireConnectionTimeout: 60000,
+        host: env('DATABASE_HOST'),
+        port: env.int('DATABASE_PORT', 5432),
+        database: env('DATABASE_NAME'),
+        user: env('DATABASE_USERNAME'),
+        password: env('DATABASE_PASSWORD'),
+        ssl: env.bool('DATABASE_SSL', false) ? {
+          rejectUnauthorized: false,
+        } : false,
       },
-    };
-  } else {
-    // SQLite fallback
-    console.log('⚠️  Using SQLite database (PostgreSQL override or not configured)');
-    return {
-      connection: {
-        client: 'sqlite',
-        connection: {
-          filename: path.join(__dirname, '..', '..', '..', '.tmp/data.db'),
-        },
-        useNullAsDefault: true,
+      pool: {
+        min: 0, // Start with 0 connections
+        max: 5,  // Lower max to avoid overwhelming database
+        createTimeoutMillis: 60000,
+        acquireTimeoutMillis: 60000,  
+        idleTimeoutMillis: 600000, // 10 minutes
+        reapIntervalMillis: 1000,
+        createRetryIntervalMillis: 2000,
+        propagateCreateError: false
       },
-    };
-  }
+      acquireConnectionTimeout: 60000,
+      debug: process.env.NODE_ENV === 'development'
+    },
+  };
 };
