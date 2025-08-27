@@ -5,7 +5,8 @@
   "description": "A Strapi application",
   "scripts": {
     "develop": "strapi develop",
-    "start": "strapi start",
+    "start": "node wake-database.js && strapi start",
+    "start-direct": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
     "postinstall": "echo 'VERIFYING VERSIONS:' && node --version && npm --version && npm list @strapi/strapi"
