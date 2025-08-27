@@ -1,0 +1,68 @@
+services:
+  - type: web
+    name: realestateabroad-cms
+    runtime: node
+    plan: starter
+    region: oregon
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /admin
+    envVars:
+      - key: NODE_VERSION
+        value: 20.19.4
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: PUBLIC_URL
+        value: https://realestateabroad-cms.onrender.com
+      - key: DATABASE_CLIENT
+        value: postgres
+      - key: DATABASE_HOST
+        fromService:
+          type: pgsql
+          name: realestateabroad-db
+          property: host
+      - key: DATABASE_PORT
+        fromService:
+          type: pgsql
+          name: realestateabroad-db
+          property: port
+      - key: DATABASE_NAME
+        fromService:
+          type: pgsql
+          name: realestateabroad-db
+          property: database
+      - key: DATABASE_USERNAME
+        fromService:
+          type: pgsql
+          name: realestateabroad-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromService:
+          type: pgsql
+          name: realestateabroad-db
+          property: password
+      - key: DATABASE_SSL
+        value: true
+      - key: APP_KEYS
+        generateValue: true
+      - key: API_TOKEN_SALT
+        generateValue: true
+      - key: ADMIN_JWT_SECRET
+        generateValue: true
+      - key: TRANSFER_TOKEN_SALT
+        generateValue: true
+      - key: ENCRYPTION_KEY
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+
+databases:
+  - name: realestateabroad-db
+    databaseName: realestateabroad_cms
+    user: realestateabroad_cms_user
+    plan: starter
