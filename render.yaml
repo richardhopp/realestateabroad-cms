@@ -5,12 +5,16 @@ services:
     plan: starter
     region: oregon
     branch: master
-    buildCommand: npm install && npm run build
+    buildCommand: rm -rf node_modules package-lock.json && npm cache clean --force && npm install && npm run build
     startCommand: npm start
     healthCheckPath: /admin
     envVars:
       - key: NODE_VERSION
         value: 20.19.4
+      - key: NPM_CONFIG_ENGINE_STRICT
+        value: true
+      - key: FORCE_STRAPI_V4
+        value: true
       - key: HOST
         value: 0.0.0.0
       - key: PORT

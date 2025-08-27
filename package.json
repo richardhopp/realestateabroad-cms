@@ -7,7 +7,8 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "postinstall": "echo 'VERIFYING VERSIONS:' && node --version && npm --version && npm list @strapi/strapi"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "4.15.5",
