@@ -70,12 +70,6 @@
       "relation": "oneToMany",
       "target": "api::blog-post.blog-post",
       "mappedBy": "site"
-    },
-    "created_at": {
-      "type": "datetime"
-    },
-    "updated_at": {
-      "type": "datetime"
     }
   }
 }
