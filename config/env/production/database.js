@@ -1,6 +1,10 @@
 const path = require('path');
 
 module.exports = ({ env }) => {
+  // Force SQLite for now since PostgreSQL is not responding
+  // This ensures Strapi can start and work properly
+  const forceUseSQLite = true; // Set to false when PostgreSQL is working
+  
   // In production, check if PostgreSQL credentials are available
   const hasPostgresCredentials = env('DATABASE_HOST') && env('DATABASE_NAME') && env('DATABASE_USERNAME');
   
@@ -9,11 +13,12 @@ module.exports = ({ env }) => {
   console.log('DATABASE_HOST:', env('DATABASE_HOST', 'not set'));
   console.log('DATABASE_PORT:', env('DATABASE_PORT', 'not set'));
   console.log('DATABASE_NAME:', env('DATABASE_NAME', 'not set'));
+  console.log('Force SQLite:', forceUseSQLite);
   console.log('=========================================');
 
-  // If PostgreSQL credentials are not available, use SQLite
-  if (!hasPostgresCredentials) {
-    console.log('⚠️  PostgreSQL not configured, using SQLite instead');
+  // Use SQLite if forced or if PostgreSQL credentials are not available
+  if (forceUseSQLite || !hasPostgresCredentials) {
+    console.log('⚠️  Using SQLite database (PostgreSQL suspended or not configured)');
     return {
       connection: {
         client: 'sqlite',
@@ -40,9 +45,10 @@ module.exports = ({ env }) => {
         },
       },
       pool: {
-        min: env.int('DATABASE_POOL_MIN', 2),
+        min: env.int('DATABASE_POOL_MIN', 0), // Start with 0 to avoid immediate connection
         max: env.int('DATABASE_POOL_MAX', 10)
       },
+      acquireConnectionTimeout: 60000,
     },
   };
 };
