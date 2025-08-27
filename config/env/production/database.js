@@ -11,21 +11,24 @@ module.exports = ({ env }) => {
   console.log('DATABASE_SSL:', env('DATABASE_SSL', 'not set'));
   console.log('=========================================');
 
-  // PostgreSQL configuration optimized for Render internal network
-  // Force internal hostname to avoid external connection issues
-  const internalHost = 'dpg-d2jhc3be5dus739462a0-a';
-  const dbUser = 'realestateabroad_user';
-  const dbPassword = '1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy';
-  const dbName = 'realestateabroad_cms';
-  const dbPort = 5432;
+  // PostgreSQL configuration using Render environment variables
+  // Convert external hostname to internal hostname for better connectivity
+  const externalHost = env('DATABASE_HOST');
+  const internalHost = externalHost ? externalHost.split('.')[0] : 'dpg-d2jhc3be5dus739462a0-a';
+  const dbUser = env('DATABASE_USERNAME');
+  const dbPassword = env('DATABASE_PASSWORD');
+  const dbName = env('DATABASE_NAME');
+  const dbPort = env.int('DATABASE_PORT', 5432);
   
+  console.log(`🔗 External host: ${externalHost}`);
   console.log(`🔗 Using internal host: ${internalHost}:${dbPort}/${dbName}`);
+  console.log(`👤 User: ${dbUser}`);
   
   const dbConfig = {
     connection: {
       client: 'postgres',
       connection: {
-        host: internalHost,
+        host: internalHost,  // Use internal hostname
         port: dbPort,
         database: dbName,
         user: dbUser,

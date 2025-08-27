@@ -26,15 +26,25 @@ services:
       - key: DATABASE_CLIENT
         value: postgres
       - key: DATABASE_HOST
-        value: dpg-d2jhc3be5dus739462a0-a
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
+          property: host
       - key: DATABASE_PORT
-        value: 5432
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
+          property: port
       - key: DATABASE_NAME
-        value: realestateabroad_cms
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
+          property: database
       - key: DATABASE_USERNAME
-        value: realestateabroad_user
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
+          property: user
       - key: DATABASE_PASSWORD
-        value: 1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
+          property: password
       - key: DATABASE_SSL
         value: true
       - key: APP_KEYS

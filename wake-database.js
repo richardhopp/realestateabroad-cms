@@ -8,20 +8,24 @@
 const { Client } = require('pg');
 
 async function wakeDatabase() {
-  // Force internal hostname for Render network - ignore external hostname
-  const host = 'dpg-d2jhc3be5dus739462a0-a'; // Internal hostname only
+  // Use environment variables but convert external hostname to internal
+  const externalHost = process.env.DATABASE_HOST;
+  const internalHost = externalHost ? externalHost.split('.')[0] : 'dpg-d2jhc3be5dus739462a0-a';
   
   const config = {
-    host: host,
-    port: 5432,
-    database: 'realestateabroad_cms',
-    user: 'realestateabroad_user', 
-    password: '1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy',
+    host: internalHost,  // Use internal hostname
+    port: process.env.DATABASE_PORT || 5432,
+    database: process.env.DATABASE_NAME,
+    user: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
     ssl: {
       rejectUnauthorized: false,
     },
     connectionTimeoutMillis: 60000,
   };
+  
+  console.log(`🔗 External host from env: ${externalHost}`);
+  console.log(`👤 User from env: ${config.user}`);
 
   console.log('🔍 Attempting to wake database service...');
   console.log(`📡 Connecting to: ${config.host}:${config.port}/${config.database}`);
