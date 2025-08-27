@@ -12,15 +12,27 @@ module.exports = ({ env }) => {
   console.log('=========================================');
 
   // PostgreSQL configuration optimized for Render internal network
+  // Force internal hostname to avoid external connection issues
+  const internalHost = 'dpg-d2jhc3be5dus739462a0-a';
+  const dbUser = 'realestateabroad_user';
+  const dbPassword = '1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy';
+  const dbName = 'realestateabroad_cms';
+  const dbPort = 5432;
+  
+  console.log(`🔗 Using internal host: ${internalHost}:${dbPort}/${dbName}`);
+  
   const dbConfig = {
     connection: {
       client: 'postgres',
       connection: {
-        // Use internal connection string for better reliability on Render
-        connectionString: `postgresql://${env('DATABASE_USERNAME')}:${env('DATABASE_PASSWORD')}@${env('DATABASE_HOST')}:${env('DATABASE_PORT')}/${env('DATABASE_NAME')}`,
-        ssl: env.bool('DATABASE_SSL', false) ? {
+        host: internalHost,
+        port: dbPort,
+        database: dbName,
+        user: dbUser,
+        password: dbPassword,
+        ssl: {
           rejectUnauthorized: false,
-        } : false,
+        },
       },
       pool: {
         min: 0, // Start with 0 to avoid immediate failures

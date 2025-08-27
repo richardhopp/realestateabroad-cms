@@ -8,12 +8,15 @@
 const { Client } = require('pg');
 
 async function wakeDatabase() {
+  // Force internal hostname for Render network - ignore external hostname
+  const host = 'dpg-d2jhc3be5dus739462a0-a'; // Internal hostname only
+  
   const config = {
-    host: process.env.DATABASE_HOST || 'dpg-d2jhc3be5dus739462a0-a',
-    port: process.env.DATABASE_PORT || 5432,
-    database: process.env.DATABASE_NAME || 'realestateabroad_cms',
-    user: process.env.DATABASE_USERNAME || 'realestateabroad_user',
-    password: process.env.DATABASE_PASSWORD || '1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy',
+    host: host,
+    port: 5432,
+    database: 'realestateabroad_cms',
+    user: 'realestateabroad_user', 
+    password: '1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy',
     ssl: {
       rejectUnauthorized: false,
     },
