@@ -6,26 +6,4 @@
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-const defaultRouter = createCoreRouter('api::blog-post.blog-post');
-
-const customRoutes = {
-  routes: [
-    {
-      method: 'GET',
-      path: '/blog-posts/slug/:slug',
-      handler: 'blog-post.findBySlug',
-      config: {
-        policies: [],
-        middlewares: [],
-      },
-    },
-  ],
-};
-
-// Merge custom routes with default routes
-module.exports = {
-  routes: [
-    ...defaultRouter.routes,
-    ...customRoutes.routes,
-  ],
-};
+module.exports = createCoreRouter('api::blog-post.blog-post');
