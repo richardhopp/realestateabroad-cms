@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: starter
     region: oregon
-    branch: main
+    branch: master
     buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /admin
@@ -22,29 +22,24 @@ services:
       - key: DATABASE_CLIENT
         value: postgres
       - key: DATABASE_HOST
-        fromService:
-          type: pgsql
-          name: realestateabroad-db
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
           property: host
       - key: DATABASE_PORT
-        fromService:
-          type: pgsql
-          name: realestateabroad-db
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
           property: port
       - key: DATABASE_NAME
-        fromService:
-          type: pgsql
-          name: realestateabroad-db
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
           property: database
       - key: DATABASE_USERNAME
-        fromService:
-          type: pgsql
-          name: realestateabroad-db
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
           property: user
       - key: DATABASE_PASSWORD
-        fromService:
-          type: pgsql
-          name: realestateabroad-db
+        fromDatabase:
+          name: dpg-d2jhc3be5dus739462a0-a
           property: password
       - key: DATABASE_SSL
         value: true
@@ -60,9 +55,3 @@ services:
         generateValue: true
       - key: JWT_SECRET
         generateValue: true
-
-databases:
-  - name: realestateabroad-db
-    databaseName: realestateabroad_cms
-    user: realestateabroad_cms_user
-    plan: starter

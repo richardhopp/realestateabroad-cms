@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sites",
+  "info": {
+    "singularName": "site",
+    "pluralName": "sites",
+    "displayName": "Site",
+    "description": "Multi-site configuration for different properties and brands"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "key": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 50,
+      "regex": "^[a-z0-9-_]+$"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "domains": {
+      "type": "json",
+      "required": true,
+      "default": []
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "config": {
+      "type": "json",
+      "default": {}
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "brand_colors": {
+      "type": "json",
+      "default": {
+        "primary": "#000000",
+        "secondary": "#ffffff",
+        "accent": "#007bff"
+      }
+    },
+    "meta_defaults": {
+      "type": "json",
+      "default": {
+        "meta_title_suffix": "",
+        "meta_description": "",
+        "og_image": "",
+        "twitter_handle": ""
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "blog_posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog-post.blog-post",
+      "mappedBy": "site"
+    },
+    "created_at": {
+      "type": "datetime"
+    },
+    "updated_at": {
+      "type": "datetime"
+    }
+  }
+}

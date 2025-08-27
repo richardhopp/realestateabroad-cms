@@ -1,19 +1,19 @@
 'use strict';
 
 /**
- * blog-post router
+ * site router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-const defaultRouter = createCoreRouter('api::blog-post.blog-post');
+const defaultRouter = createCoreRouter('api::site.site');
 
 const customRoutes = {
   routes: [
     {
       method: 'GET',
-      path: '/blog-posts/slug/:slug',
-      handler: 'blog-post.findBySlug',
+      path: '/sites/domain/:domain',
+      handler: 'site.findByDomain',
       config: {
         policies: [],
         middlewares: [],

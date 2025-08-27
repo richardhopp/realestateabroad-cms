@@ -79,10 +79,12 @@
       "enum": ["post", "news"],
       "default": "post"
     },
-    "site_key": {
-      "type": "string",
-      "default": "realestateabroad",
-      "maxLength": 50
+    "site": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::site.site",
+      "inversedBy": "blog_posts",
+      "required": true
     }
   }
 }
