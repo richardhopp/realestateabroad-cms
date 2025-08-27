@@ -246,7 +246,7 @@ module.exports = {
             meta_title: 'Golden Visa Programs 2025: Complete Investment Guide',
             meta_description: 'Comprehensive guide to Golden Visa programs in 2025. Compare Portugal, Spain, Greece, and UAE investment residency options with requirements and benefits.',
             keywords: ["golden visa", "investment residency", "portugal golden visa", "spain golden visa", "greece golden visa", "uae golden visa", "european residency"],
-            site: sites.realestateabroad.id,
+            site: sites.realestateabroad ? sites.realestateabroad.id : null,
             publishedAt: new Date()
           },
           {
@@ -438,7 +438,7 @@ module.exports = {
             meta_title: 'Dubai Real Estate Investment 2025: Complete Market Analysis & Guide',
             meta_description: 'Dubai real estate investment guide 2025. Prime areas, rental yields, legal framework, costs, and expert tips for successful property investment in Dubai.',
             keywords: ["dubai real estate", "dubai property investment", "uae real estate", "dubai marina", "palm jumeirah", "downtown dubai", "business bay"],
-            site: sites.realestateabroad.id,
+            site: sites.realestateabroad ? sites.realestateabroad.id : null,
             publishedAt: new Date()
           }
         ];
