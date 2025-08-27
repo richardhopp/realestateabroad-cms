@@ -1,24 +1,55 @@
 const path = require('path');
 
 module.exports = ({ env }) => {
-  // Force SQLite for now since PostgreSQL is not responding
-  // This ensures Strapi can start and work properly
-  const forceUseSQLite = true; // Set to false when PostgreSQL is working
-  
-  // In production, check if PostgreSQL credentials are available
-  const hasPostgresCredentials = env('DATABASE_HOST') && env('DATABASE_NAME') && env('DATABASE_USERNAME');
-  
   console.log('=== Production Database Configuration ===');
-  console.log('PostgreSQL credentials available:', hasPostgresCredentials);
+  console.log('DATABASE_CLIENT:', env('DATABASE_CLIENT', 'not set'));
   console.log('DATABASE_HOST:', env('DATABASE_HOST', 'not set'));
   console.log('DATABASE_PORT:', env('DATABASE_PORT', 'not set'));
   console.log('DATABASE_NAME:', env('DATABASE_NAME', 'not set'));
-  console.log('Force SQLite:', forceUseSQLite);
+  console.log('DATABASE_USERNAME:', env('DATABASE_USERNAME', 'not set'));
+  console.log('DATABASE_PASSWORD:', env('DATABASE_PASSWORD', 'not set') ? '***hidden***' : 'not set');
+  
+  // Check if we're forcing a specific client
+  const clientOverride = env('DATABASE_CLIENT_OVERRIDE', '');
+  const usePostgres = env('DATABASE_CLIENT', 'postgres') === 'postgres' && !clientOverride;
+  
+  console.log('Use PostgreSQL:', usePostgres);
+  console.log('Client Override:', clientOverride || 'none');
   console.log('=========================================');
 
-  // Use SQLite if forced or if PostgreSQL credentials are not available
-  if (forceUseSQLite || !hasPostgresCredentials) {
-    console.log('⚠️  Using SQLite database (PostgreSQL suspended or not configured)');
+  if (usePostgres && !clientOverride) {
+    // PostgreSQL configuration for Render
+    return {
+      connection: {
+        client: 'postgres',
+        connection: {
+          host: env('DATABASE_HOST'),
+          port: env.int('DATABASE_PORT', 5432),
+          database: env('DATABASE_NAME'),
+          user: env('DATABASE_USERNAME'),
+          password: env('DATABASE_PASSWORD'),
+          ssl: {
+            rejectUnauthorized: false,
+            require: true
+          },
+        },
+        pool: {
+          min: 0, // Start with 0 to avoid immediate connection failure
+          max: 10,
+          createTimeoutMillis: 60000,
+          acquireTimeoutMillis: 60000,
+          idleTimeoutMillis: 30000,
+          reapIntervalMillis: 1000,
+          createRetryIntervalMillis: 200,
+          propagateCreateError: false // Don't fail immediately if can't connect
+        },
+        debug: false,
+        acquireConnectionTimeout: 60000,
+      },
+    };
+  } else {
+    // SQLite fallback
+    console.log('⚠️  Using SQLite database (PostgreSQL override or not configured)');
     return {
       connection: {
         client: 'sqlite',
@@ -29,26 +60,4 @@ module.exports = ({ env }) => {
       },
     };
   }
-
-  // Use PostgreSQL with proper SSL configuration for Render
-  return {
-    connection: {
-      client: 'postgres',
-      connection: {
-        host: env('DATABASE_HOST'),
-        port: env.int('DATABASE_PORT', 5432),
-        database: env('DATABASE_NAME'),
-        user: env('DATABASE_USERNAME'),
-        password: env('DATABASE_PASSWORD'),
-        ssl: {
-          rejectUnauthorized: false
-        },
-      },
-      pool: {
-        min: env.int('DATABASE_POOL_MIN', 0), // Start with 0 to avoid immediate connection
-        max: env.int('DATABASE_POOL_MAX', 10)
-      },
-      acquireConnectionTimeout: 60000,
-    },
-  };
 };

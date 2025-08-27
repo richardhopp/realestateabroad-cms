@@ -59,3 +59,5 @@ services:
         generateValue: true
       - key: JWT_SECRET
         generateValue: true
+      - key: DATABASE_CLIENT_OVERRIDE
+        value: sqlite # Remove this when PostgreSQL is working

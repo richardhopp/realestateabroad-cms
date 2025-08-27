@@ -8,17 +8,14 @@
 const { Client } = require('pg');
 
 // Render PostgreSQL connection details from dashboard
-// External connection requires the full hostname with .render.com suffix
+// Using external connection string for testing from local machine
 const connectionConfig = {
-  host: 'dpg-d2jhc3be5dus739462a0-a.oregon-postgres.render.com',
-  port: 5432,
-  database: 'realestateabroad_cms',
-  user: 'realestateabroad_user',
-  password: '1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy',
+  connectionString: 'postgresql://realestateabroad_user:1hLK0jhaD62gKvLpjc3YzUSLUTpf2rLy@dpg-d2jhc3be5dus739462a0-a.oregon-postgres.render.com:5432/realestateabroad_cms?sslmode=require',
   ssl: {
-    rejectUnauthorized: false // Required for Render's PostgreSQL
+    rejectUnauthorized: false,
+    require: true
   },
-  connectionTimeoutMillis: 10000,
+  connectionTimeoutMillis: 30000,
 };
 
 async function testConnection() {
