@@ -2,6 +2,15 @@ const path = require('path');
 
 module.exports = ({ env }) => {
   const client = env('DATABASE_CLIENT', 'sqlite');
+  
+  // Debug database configuration
+  console.log('=== Database Configuration ===');
+  console.log('DATABASE_CLIENT:', client);
+  console.log('DATABASE_HOST:', env('DATABASE_HOST', 'not set'));
+  console.log('DATABASE_NAME:', env('DATABASE_NAME', 'not set'));
+  console.log('DATABASE_SSL:', env.bool('DATABASE_SSL', false));
+  console.log('DATABASE_URL:', env('DATABASE_URL', 'not set') ? 'set' : 'not set');
+  console.log('==============================');
 
   const connections = {
     mysql: {
@@ -55,17 +64,9 @@ module.exports = ({ env }) => {
         database: env('DATABASE_NAME', 'strapi'),
         user: env('DATABASE_USERNAME', 'strapi'),
         password: env('DATABASE_PASSWORD', 'strapi'),
-        ssl: env.bool('DATABASE_SSL', false) && {
-          key: env('DATABASE_SSL_KEY', undefined),
-          cert: env('DATABASE_SSL_CERT', undefined),
-          ca: env('DATABASE_SSL_CA', undefined),
-          capath: env('DATABASE_SSL_CAPATH', undefined),
-          cipher: env('DATABASE_SSL_CIPHER', undefined),
-          rejectUnauthorized: env.bool(
-            'DATABASE_SSL_REJECT_UNAUTHORIZED',
-            true
-          ),
-        },
+        ssl: env.bool('DATABASE_SSL', false) ? {
+          rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', false),
+        } : false,
         schema: env('DATABASE_SCHEMA', 'public'),
       },
       pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 10) },
