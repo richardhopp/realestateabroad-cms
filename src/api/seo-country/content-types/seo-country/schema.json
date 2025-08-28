@@ -1,0 +1,98 @@
+{
+  "kind": "collectionType",
+  "collectionName": "seo_countries",
+  "info": {
+    "singularName": "seo-country",
+    "pluralName": "seo-countries",
+    "displayName": "SEO Country",
+    "description": "SEO-optimized country pages for property listings"
+  },
+  "options": {
+    "draftAndPublish": true,
+    "comment": ""
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 100
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true,
+      "unique": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "meta_title": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "meta_description": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "keywords": {
+      "type": "json"
+    },
+    "description": {
+      "type": "text"
+    },
+    "hero_image_url": {
+      "type": "string"
+    },
+    "flag_image_url": {
+      "type": "string"
+    },
+    "why_invest": {
+      "type": "json"
+    },
+    "property_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "average_price": {
+      "type": "integer",
+      "default": 0
+    },
+    "average_yield": {
+      "type": "decimal",
+      "default": 0
+    },
+    "currency": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "capital": {
+      "type": "string"
+    },
+    "continent": {
+      "type": "string"
+    },
+    "investment_climate": {
+      "type": "string"
+    },
+    "cities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::seo-city.seo-city",
+      "mappedBy": "country"
+    },
+    "site": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::site.site",
+      "inversedBy": "seo_countries"
+    }
+  }
+}

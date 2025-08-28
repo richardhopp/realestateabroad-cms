@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "consultation_countries",
+  "info": {
+    "singularName": "consultation-country",
+    "pluralName": "consultation-countries",
+    "displayName": "Consultation Country",
+    "description": "Country-specific property consultation and buying guides"
+  },
+  "options": {
+    "draftAndPublish": true,
+    "comment": ""
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 100
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true,
+      "unique": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "meta_title": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "meta_description": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "keywords": {
+      "type": "json"
+    },
+    "hero_image_url": {
+      "type": "string"
+    },
+    "flag_image_url": {
+      "type": "string"
+    },
+    "market_overview": {
+      "type": "text"
+    },
+    "market_trends": {
+      "type": "json"
+    },
+    "investment_rating": {
+      "type": "string"
+    },
+    "risk_assessment": {
+      "type": "json"
+    },
+    "legal_considerations": {
+      "type": "json"
+    },
+    "buying_process": {
+      "type": "json"
+    },
+    "site": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::site.site",
+      "inversedBy": "consultation_countries"
+    }
+  }
+}

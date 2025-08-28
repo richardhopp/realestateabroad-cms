@@ -41,7 +41,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "brand_colors": {
       "type": "json",
@@ -69,6 +71,30 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::blog-post.blog-post",
+      "mappedBy": "site"
+    },
+    "seo_countries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::seo-country.seo-country",
+      "mappedBy": "site"
+    },
+    "seo_cities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::seo-city.seo-city",
+      "mappedBy": "site"
+    },
+    "financing_countries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::financing-country.financing-country",
+      "mappedBy": "site"
+    },
+    "consultation_countries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::consultation-country.consultation-country",
       "mappedBy": "site"
     }
   }

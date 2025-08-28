@@ -32,12 +32,20 @@ module.exports = {
           where: { role: publicRole.id }
         });
         
-        // Enable public access for blog posts
+        // Enable public access for all content types
         const requiredActions = [
           'api::blog-post.blog-post.find',
           'api::blog-post.blog-post.findOne',
           'api::site.site.find',
-          'api::site.site.findOne'
+          'api::site.site.findOne',
+          'api::seo-country.seo-country.find',
+          'api::seo-country.seo-country.findOne',
+          'api::seo-city.seo-city.find',
+          'api::seo-city.seo-city.findOne',
+          'api::financing-country.financing-country.find',
+          'api::financing-country.financing-country.findOne',
+          'api::consultation-country.consultation-country.find',
+          'api::consultation-country.consultation-country.findOne'
         ];
         
         for (const action of requiredActions) {

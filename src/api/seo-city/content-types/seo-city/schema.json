@@ -1,0 +1,96 @@
+{
+  "kind": "collectionType",
+  "collectionName": "seo_cities",
+  "info": {
+    "singularName": "seo-city",
+    "pluralName": "seo-cities",
+    "displayName": "SEO City",
+    "description": "SEO-optimized city pages for property listings"
+  },
+  "options": {
+    "draftAndPublish": true,
+    "comment": ""
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "meta_title": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "meta_description": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "keywords": {
+      "type": "json"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "property_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "average_price": {
+      "type": "integer",
+      "default": 0
+    },
+    "average_yield": {
+      "type": "decimal",
+      "default": 0
+    },
+    "population": {
+      "type": "integer"
+    },
+    "area_km2": {
+      "type": "decimal"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "coordinates": {
+      "type": "json"
+    },
+    "investment_rating": {
+      "type": "string"
+    },
+    "highlights": {
+      "type": "json"
+    },
+    "amenities": {
+      "type": "json"
+    },
+    "transport_links": {
+      "type": "json"
+    },
+    "country": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::seo-country.seo-country",
+      "inversedBy": "cities"
+    },
+    "site": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::site.site",
+      "inversedBy": "seo_cities"
+    }
+  }
+}
