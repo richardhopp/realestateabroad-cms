@@ -1,0 +1,186 @@
+{
+  "kind": "collectionType",
+  "collectionName": "market_statistics",
+  "info": {
+    "singularName": "market-statistic",
+    "pluralName": "market-statistics",
+    "displayName": "Market Statistic",
+    "description": "Real-time market data including mortgage rates, LTV ratios, and market performance"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "statistic_type": {
+      "type": "enumeration",
+      "enum": [
+        "mortgage-rate",
+        "ltv-ratio",
+        "success-rate",
+        "market-growth",
+        "property-appreciation",
+        "investment-roi",
+        "transaction-volume",
+        "average-price",
+        "market-trend",
+        "financing-approval"
+      ],
+      "required": true
+    },
+    "value": {
+      "type": "decimal",
+      "required": true
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": [
+        "percentage",
+        "currency",
+        "ratio",
+        "count",
+        "days",
+        "months",
+        "years"
+      ],
+      "default": "percentage",
+      "required": true
+    },
+    "country": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "region": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "currency": {
+      "type": "string",
+      "maxLength": 10,
+      "default": "EUR"
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "data_source": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "last_updated": {
+      "type": "datetime",
+      "required": true
+    },
+    "trend_direction": {
+      "type": "enumeration",
+      "enum": [
+        "up",
+        "down",
+        "stable",
+        "volatile"
+      ],
+      "default": "stable"
+    },
+    "change_percentage": {
+      "type": "decimal"
+    },
+    "change_period": {
+      "type": "enumeration",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "quarterly",
+        "yearly"
+      ],
+      "default": "monthly"
+    },
+    "historical_data": {
+      "type": "json",
+      "default": []
+    },
+    "confidence_level": {
+      "type": "decimal",
+      "min": 0,
+      "max": 100,
+      "default": 95
+    },
+    "sample_size": {
+      "type": "integer",
+      "min": 0
+    },
+    "methodology": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "keywords": {
+      "type": "json",
+      "default": []
+    },
+    "meta_title": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "meta_description": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "priority": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "default": 50
+    },
+    "commercial_value": {
+      "type": "enumeration",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "display_on_homepage": {
+      "type": "boolean",
+      "default": false
+    },
+    "chart_type": {
+      "type": "enumeration",
+      "enum": [
+        "line",
+        "bar",
+        "pie",
+        "gauge",
+        "number",
+        "trend"
+      ],
+      "default": "number"
+    },
+    "chart_config": {
+      "type": "json",
+      "default": {}
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "view_count": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    },
+    "site": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::site.site",
+      "inversedBy": "market_statistics",
+      "required": true
+    }
+  }
+}

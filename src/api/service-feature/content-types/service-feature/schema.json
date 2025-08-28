@@ -1,0 +1,146 @@
+{
+  "kind": "collectionType",
+  "collectionName": "service_features",
+  "info": {
+    "singularName": "service-feature",
+    "pluralName": "service-features",
+    "displayName": "Service Feature",
+    "description": "Features and benefits of financing and consultation services"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "service_type": {
+      "type": "enumeration",
+      "enum": [
+        "mortgage-financing",
+        "investment-consultation",
+        "legal-consultation",
+        "tax-consultation",
+        "property-management",
+        "market-analysis"
+      ],
+      "required": true
+    },
+    "feature_type": {
+      "type": "enumeration",
+      "enum": [
+        "benefit",
+        "process-step",
+        "requirement",
+        "advantage",
+        "option",
+        "guarantee"
+      ],
+      "default": "benefit",
+      "required": true
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "priority": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "default": 50,
+      "required": true
+    },
+    "pros": {
+      "type": "json",
+      "default": []
+    },
+    "cons": {
+      "type": "json",
+      "default": []
+    },
+    "requirements": {
+      "type": "json",
+      "default": []
+    },
+    "cost_range": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "timeline": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "success_rate": {
+      "type": "decimal",
+      "min": 0,
+      "max": 100
+    },
+    "countries": {
+      "type": "json",
+      "default": []
+    },
+    "keywords": {
+      "type": "json",
+      "default": []
+    },
+    "meta_title": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "meta_description": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "commercial_value": {
+      "type": "enumeration",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "lead_generation": {
+      "type": "boolean",
+      "default": false
+    },
+    "cta_text": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "cta_link": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "view_count": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    },
+    "click_count": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    },
+    "site": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::site.site",
+      "inversedBy": "service_features",
+      "required": true
+    }
+  }
+}

@@ -1,3 +1,27 @@
-# To prevent search engines from seeing the site altogether, uncomment the next two lines:
-# User-Agent: *
+# Dynamic robots.txt - use /api/seo/robots/{site-key} for site-specific robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps - use site-specific sitemaps
+Sitemap: https://example.com/api/seo/sitemap/realestateabroad
+
+# Disallow admin, API, and system directories
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /uploads/private/
+Disallow: /.well-known/
+
+# Allow specific API endpoints for SEO
+Allow: /api/seo/
+Allow: /uploads/public/
+
+# Common SEO optimizations
+Crawl-delay: 1
+Request-rate: 1/1s
+
+# Block specific bots if needed (uncomment as needed)
+# User-agent: AhrefsBot
+# Disallow: /
+# User-agent: MJ12bot
 # Disallow: /

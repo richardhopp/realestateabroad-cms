@@ -1,0 +1,202 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testimonials",
+  "info": {
+    "singularName": "testimonial",
+    "pluralName": "testimonials",
+    "displayName": "Testimonial",
+    "description": "Client testimonials and reviews for financing and consultation services"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "client_name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "client_location": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "client_country": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "client_photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "testimonial_text": {
+      "type": "richtext",
+      "required": true
+    },
+    "rating": {
+      "type": "decimal",
+      "required": true,
+      "min": 1,
+      "max": 5
+    },
+    "service_type": {
+      "type": "enumeration",
+      "enum": [
+        "mortgage-financing",
+        "investment-consultation",
+        "legal-consultation",
+        "tax-consultation",
+        "property-management",
+        "full-service",
+        "market-analysis"
+      ],
+      "required": true
+    },
+    "service_category": {
+      "type": "enumeration",
+      "enum": [
+        "financing",
+        "consultation",
+        "legal",
+        "taxation",
+        "investment",
+        "property-purchase",
+        "ongoing-support"
+      ],
+      "required": true
+    },
+    "investment_amount": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "property_type": {
+      "type": "enumeration",
+      "enum": [
+        "apartment",
+        "villa",
+        "commercial",
+        "land",
+        "development-project",
+        "rental-property",
+        "holiday-home"
+      ]
+    },
+    "purchase_country": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "completion_date": {
+      "type": "date"
+    },
+    "project_duration": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "key_benefits": {
+      "type": "json",
+      "default": []
+    },
+    "challenges_overcome": {
+      "type": "json",
+      "default": []
+    },
+    "would_recommend": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "verification_date": {
+      "type": "date"
+    },
+    "priority": {
+      "type": "integer",
+      "min": 1,
+      "max": 100,
+      "default": 50,
+      "required": true
+    },
+    "commercial_value": {
+      "type": "enumeration",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "homepage_display": {
+      "type": "boolean",
+      "default": false
+    },
+    "keywords": {
+      "type": "json",
+      "default": []
+    },
+    "meta_title": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "meta_description": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "social_proof_score": {
+      "type": "integer",
+      "min": 0,
+      "max": 100,
+      "default": 50
+    },
+    "conversion_tracking": {
+      "type": "boolean",
+      "default": false
+    },
+    "lead_source": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "follow_up_consent": {
+      "type": "boolean",
+      "default": false
+    },
+    "privacy_consent": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "display_name_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "view_count": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    },
+    "engagement_score": {
+      "type": "decimal",
+      "min": 0,
+      "max": 10,
+      "default": 5
+    },
+    "site": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::site.site",
+      "inversedBy": "testimonials",
+      "required": true
+    }
+  }
+}

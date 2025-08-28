@@ -96,6 +96,30 @@
       "relation": "oneToMany",
       "target": "api::consultation-country.consultation-country",
       "mappedBy": "site"
+    },
+    "faqs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::faq.faq",
+      "mappedBy": "site"
+    },
+    "service_features": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service-feature.service-feature",
+      "mappedBy": "site"
+    },
+    "market_statistics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::market-statistic.market-statistic",
+      "mappedBy": "site"
+    },
+    "testimonials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::testimonial.testimonial",
+      "mappedBy": "site"
     }
   }
 }
