@@ -75,6 +75,16 @@
       "relation": "manyToOne",
       "target": "api::site.site",
       "inversedBy": "consultation_countries"
+    },
+    "seo_article": {
+      "type": "richtext",
+      "configurable": false,
+      "required": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }
